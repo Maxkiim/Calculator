@@ -4,6 +4,7 @@ const operators = Array.from(document.querySelectorAll(".operator"));
 const display = document.querySelector("span");
 const equal = document.querySelector("#equal");
 const reset = document.querySelector("#reset");
+const backspace = document.querySelector("#backspace");
 
 let firstNum = "";
 let secondNum = "";
@@ -45,7 +46,34 @@ reset.addEventListener("click", () => {
     secondNum = "";
     currentOperator = null;
     shouldResetDisplay = false;
-})
+});
+
+backspace.addEventListener("click", () => {
+    if (shouldResetDisplay) return;
+    display.innerHTML = display.innerHTML.slice(0, -1);
+    if (display.innerHTML === "") {
+        display.innerHTML = "0";
+    }
+});
+
+
+function handleKeyPress(e) {
+    const key = e.key;
+
+    if (!isNaN(key)) {
+        clickNumber(key);
+    } else if (key === '+' || key === '-' || key === '*' || key === '/' || key === '%') {
+        clickOperator(key);
+    } else if (key === 'Enter' || key === '=') {
+        equal.click();
+    } else if (key === 'Backspace') {
+        backspace.click();
+    } else if (key === 'Escape' || key.toLowerCase() === 'c') {
+        reset.click();
+    } else if (key === '.') {
+        clickNumber(key);
+    }
+}
 
 
 function addNums(a, b){
@@ -90,4 +118,21 @@ function calculate(){
     firstNum = display.innerHTML;
     currentOperator = null;
 }
+function clickNumber(val) {
+    if (shouldResetDisplay) {
+        display.innerHTML = "";
+        shouldResetDisplay = false;
+    }
+    display.innerHTML += val;
+}
 
+function clickOperator(op) {
+    if (currentOperator !== null) {
+        calculate();
+    }
+    firstNum = display.innerHTML;
+    currentOperator = op;
+    shouldResetDisplay = true;
+}
+
+document.addEventListener("keydown", handleKeyPress);

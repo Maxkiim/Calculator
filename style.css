@@ -9,27 +9,43 @@
 }
 #container {
     width: 500px;
+    padding: 50px;
     height: fit-content;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    border: 10px solid black;
+    border-radius: 5%;
+    background-color: #5b5a42;
 }
 span {
     background: black;
     color: white;
     width: 90%;
     flex-grow: 4;
-    height: 80px;
+    height: 150px;
     text-align: right;
     font-size: 3.5em;
-    padding: 10px;
+    margin-bottom: 20px;
     box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 8%;
 }
 button {
     font-size: 2em;
     flex-grow: 1;
-    width: 25%;
+    width: 22%;
     height: 100px;
     box-sizing: border-box;
+    border-radius: 20%;
+    margin: 1px;
+    background-color: black;
+    color: white;
+}
+#zero {
+    width: 48%;
+}
+.dh {
+    height: 125px;
 }

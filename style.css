@@ -1,0 +1,35 @@
+#body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+#container {
+    width: 500px;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+span {
+    background: black;
+    color: white;
+    width: 90%;
+    flex-grow: 4;
+    height: 80px;
+    text-align: right;
+    font-size: 3.5em;
+    padding: 10px;
+    box-sizing: border-box;
+}
+button {
+    font-size: 2em;
+    flex-grow: 1;
+    width: 25%;
+    height: 100px;
+    box-sizing: border-box;
+}

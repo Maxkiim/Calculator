@@ -5,25 +5,40 @@ const display = document.querySelector("span");
 const equal = document.querySelector("#equal");
 const reset = document.querySelector("#reset");
 const backspace = document.querySelector("#backspace");
+const dot = document.querySelector("#dot");
 
 let firstNum = "";
 let secondNum = "";
 let currentOperator = null;
 let shouldResetDisplay = false;
 
+dot.addEventListener("click", () => {
+    if (!display.innerHTML.includes(".")){
+        display.innerHTML += ".";
+    }
+});
 numbers.forEach(num => {
     num.addEventListener("click", () =>{
         if (shouldResetDisplay) {
             display.innerHTML = "";
             shouldResetDisplay = false;
         }
+        if (display.innerHTML === "0"){
+            display.innerHTML = "";
+        }
         display.innerHTML += num.innerHTML;
         console.log(num.innerHTML);
     });
 });
 
+
 operators.forEach(op => {
     op.addEventListener("click", () =>{
+        if (currentOperator === "="){
+            currentOperator = null;
+            shouldResetDisplay = true;
+            return;
+        };
         if (currentOperator !== null){
             calculate()
         }
@@ -41,7 +56,7 @@ equal.addEventListener("click", () => {
 });
 
 reset.addEventListener("click", () => {
-    display.innerHTML = "";
+    display.innerHTML = "0";
     firstNum = "";
     secondNum = "";
     currentOperator = null;
@@ -51,15 +66,14 @@ reset.addEventListener("click", () => {
 backspace.addEventListener("click", () => {
     if (shouldResetDisplay) return;
     display.innerHTML = display.innerHTML.slice(0, -1);
+    console.log("backspace clicked")
     if (display.innerHTML === "") {
         display.innerHTML = "0";
     }
 });
 
-
 function handleKeyPress(e) {
     const key = e.key;
-
     if (!isNaN(key)) {
         clickNumber(key);
     } else if (key === '+' || key === '-' || key === '*' || key === '/' || key === '%') {
@@ -74,7 +88,6 @@ function handleKeyPress(e) {
         clickNumber(key);
     }
 }
-
 
 function addNums(a, b){
     return Number(a) + Number(b);
@@ -93,10 +106,8 @@ function remainNums(a, b){
 }
 
 function operate(a, b, c){
-    console.log(`Operate called with: a=${a}, b=${b}, c=${c}`);
     switch (c){
         case '+':
-            console.log("working");
             return addNums(a, b);
         case '-':
             return subtractNums(a, b);
@@ -107,6 +118,7 @@ function operate(a, b, c){
         case '%':
             return remainNums(a, b);
         default:
+            console.log(c);
             return "unknown operator";
     }
 }
@@ -119,9 +131,16 @@ function calculate(){
     currentOperator = null;
 }
 function clickNumber(val) {
+    if (val === "." && display.innerHTML.includes(".")) return;
     if (shouldResetDisplay) {
         display.innerHTML = "";
         shouldResetDisplay = false;
+    }
+    if (display.innerHTML === "0"){
+        display.innerHTML = "";
+    }
+    if (val === ".") {
+        display.innerHTML = "0";
     }
     display.innerHTML += val;
 }

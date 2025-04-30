@@ -28,6 +28,7 @@ span {
     text-align: right;
     font-size: 3.5em;
     margin-bottom: 20px;
+    padding: 10px;
     box-sizing: border-box;
     border: 2px solid black;
     border-radius: 8%;
